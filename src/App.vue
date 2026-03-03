@@ -1,15 +1,12 @@
 <template>
   <div id="app">
-    <ChatHome></ChatHome>
+    <router-view />
   </div>
 </template>
 
 <script>
-import ChatHome from "./components/ChatHome.vue";
-
 export default {
   name: "App",
-  components: { ChatHome },
 };
 </script>
 

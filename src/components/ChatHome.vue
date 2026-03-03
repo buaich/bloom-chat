@@ -11,10 +11,10 @@
     <h1 class="chat-home-name" ref="chatHomeName">night chat</h1>
     <!-- 主页按钮 -->
     <div class="chat-home-buttons">
-      <router-link to="/login" class="btn btn-login"
+      <router-link :to="{ name: 'login' }" class="btn btn-login"
         >&nbsp;login&nbsp;</router-link
       >
-      <router-link to="/register" class="btn btn-register"
+      <router-link :to="{ name: 'register' }" class="btn btn-register"
         >register</router-link
       >
     </div>
