@@ -1,9 +1,12 @@
 <template>
   <div class="user-register">
     <h1 class="user-register-title">register</h1>
-    <form class="user-register-form" @submit.prevent="onSubmit">
+    <form class="user-register-form">
       <div class="form-item">
         <input type="text" v-model="username" placeholder="username" required />
+      </div>
+      <div class="form-item">
+        <input type="text" v-model="sex" placeholder="sex" required />
       </div>
       <div class="form-item">
         <input
@@ -22,7 +25,7 @@
         />
       </div>
       <div class="btn-wrapp">
-        <button class="btn btn-register" type="submit">register</button>
+        <button class="btn btn-register" @click="onSubmit">register</button>
         <button class="btn btn-login" @click="goToLogin">login</button>
       </div>
     </form>
@@ -30,11 +33,14 @@
 </template>
 
 <script lang="js">
+import axios from 'axios';
+
 export default {
   name: "UserRegister",
   data() {
     return {
       username: "",
+      sex:"",
       password: "",
       confirmPassword: "",
     };
@@ -45,7 +51,12 @@ export default {
         alert("Passwords do not match");
         return;
       }
-      console.log("register", this.username, this.password);
+
+      axios.post("http://localhost:3000/api/user/register",{
+        username:this.username,
+        password:this.password,
+        sex:this.sex
+      })
     },
 
     goToLogin(){

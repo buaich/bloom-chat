@@ -26,6 +26,8 @@
 </template>
 
 <script lang="js">
+import axios from 'axios';
+
 export default {
   name: "UserLogin",
   data() {
@@ -37,7 +39,10 @@ export default {
   methods: {
     // 提交表单数据
     onSubmit() {
-      console.log("attempt login", this.username, this.password);
+     axios.post("http://localhost:3000/api/user/login",{
+      username:this.username,
+      password:this.password
+     })
     },
 
     // 编程式路由导航，跳转到注册页
