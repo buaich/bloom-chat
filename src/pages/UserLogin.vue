@@ -3,7 +3,7 @@
     <!-- 用户登录界面标题 -->
     <h1 class="user-login-title">login</h1>
     <!-- 用户登录表单 -->
-    <form class="user-llogin-form" @submit.prevent="onSubmit">
+    <form class="user-llogin-form">
       <!-- 用户名输入框 -->
       <div class="form-item">
         <input type="text" v-model="username" placeholder="username" required />
@@ -18,15 +18,17 @@
         />
       </div>
       <div class="btn-wrapper">
-        <button class="btn btn-login" type="submit">login</button>
-        <button class="btn btn-register" @click="goToRegister">register</button>
+        <button class="btn btn-login" @click.prevent="login">login</button>
+        <button class="btn btn-register" @click.prevent="goToRegister">
+          register
+        </button>
       </div>
     </form>
   </div>
 </template>
 
 <script lang="js">
-import axios from 'axios';
+import userHttp from '@/utils/network/user';
 
 export default {
   name: "UserLogin",
@@ -37,12 +39,14 @@ export default {
     };
   },
   methods: {
-    // 提交表单数据
-    onSubmit() {
-     axios.post("http://localhost:3000/api/user/login",{
-      username:this.username,
-      password:this.password
-     })
+
+    login() {
+      if(this.username !== "" || this.password !== ""){
+        userHttp.post("/user/login",{
+          userName:this.username,
+          userPassword:this.password
+        })
+      }
     },
 
     // 编程式路由导航，跳转到注册页
