@@ -18,7 +18,9 @@
         />
       </div>
       <div class="btn-wrapper">
-        <button class="btn btn-login" @click.prevent="login">login</button>
+        <button class="btn btn-login" @click.prevent="loginUser()">
+          login
+        </button>
         <button class="btn btn-register" @click.prevent="goToRegister">
           register
         </button>
@@ -28,7 +30,8 @@
 </template>
 
 <script lang="js">
-import userHttp from '@/utils/network/user';
+import { mapActions } from 'vuex';
+
 
 export default {
   name: "UserLogin",
@@ -39,17 +42,16 @@ export default {
     };
   },
   methods: {
+      ...mapActions("userStore",["login"])
+    ,
 
-    login() {
-      if(this.username !== "" || this.password !== ""){
-        userHttp.post("/user/login",{
-          userName:this.username,
-          userPassword:this.password
-        })
-      }
+    loginUser(){
+      console.log("<pages/UserLogin.vue>:loginUser() execute");
+
+      this.login({userName:this.username,userPassword:this.password});
     },
 
-    // 编程式路由导航，跳转到注册页
+       // 编程式路由导航，跳转到注册页
     goToRegister() {
       this.$router.push({ name: "register" });
     },
