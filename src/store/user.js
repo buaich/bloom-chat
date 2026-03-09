@@ -9,20 +9,38 @@ export default {
   }),
 
   actions: {
-    // 用户登录
-    async login({ state }, { userName, userPassword }) {
-      const result = await userHttp.post("/user/login", {
-        userName,
-        userPassword,
-      });
+    /**
+     * @description 用户认证
+     * @param {Object} state -当前模块的state
+     * @param {string} userName -用户名
+     * @param {string} userPhone -用户电话号码
+     * @param {string} userPassword -用户密码
+     * @param {string} way -认证方式
+     * @returns {undefined}
+     */
+    async authenticate({ state }, { userName, userPhone, userPassword, way }) {
+      let result = null;
 
-      console.log("<store/user.js>:login() execute, result:", result);
+      if (way === "login") {
+        result = await userHttp.post("/user/login", {
+          userName,
+          userPassword,
+        });
+      } else if (way === "register") {
+        result = await userHttp.post("/user/register", {
+          userName,
+          userPhone,
+          userPassword,
+        });
+      } else {
+        return;
+      }
 
+      console.log("<store/user.js>:authentication() execute, result:", result);
+      // 更新state
       state.code = result.code;
       state.data = result.data;
       state.message = result.message;
     },
   },
-
-  mutations: {},
 };

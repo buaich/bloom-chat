@@ -3,7 +3,7 @@
     <!-- 用户登录界面标题 -->
     <h1 class="user-login-title">login</h1>
     <!-- 用户登录表单 -->
-    <form class="user-llogin-form">
+    <div class="user-login-form">
       <!-- 用户名输入框 -->
       <div class="form-item">
         <input type="text" v-model="username" placeholder="username" required />
@@ -18,14 +18,14 @@
         />
       </div>
       <div class="btn-wrapper">
-        <button class="btn btn-login" @click.prevent="loginUser()">
+        <button class="btn btn-login" type="button" @click="login">
           login
         </button>
         <button class="btn btn-register" @click.prevent="goToRegister">
           register
         </button>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -42,13 +42,13 @@ export default {
     };
   },
   methods: {
-      ...mapActions("userStore",["login"])
+      ...mapActions("userStore",["authenticate"])
     ,
 
-    loginUser(){
-      console.log("<pages/UserLogin.vue>:loginUser() execute");
+    login(){
+      console.log("<pages/UserLogin.vue>:login() execute");
 
-      this.login({userName:this.username,userPassword:this.password});
+      this.authenticate({userName:this.username,userPassword:this.password,way:"login"});
     },
 
        // 编程式路由导航，跳转到注册页

@@ -3,16 +3,21 @@
     <h1 class="user-register-title">register</h1>
     <form class="user-register-form">
       <div class="form-item">
-        <input type="text" v-model="username" placeholder="username" required />
+        <input type="text" v-model="userName" placeholder="username" required />
       </div>
       <div class="form-item">
-        <input type="text" v-model="sex" placeholder="sex" required />
+        <input
+          type="text"
+          v-model="userPhone"
+          placeholder="phone number"
+          required
+        />
       </div>
       <div class="form-item">
         <input
           type="password"
-          v-model="password"
-          placeholder="password"
+          v-model="userPassword"
+          placeholder="user password"
           required
         />
       </div>
@@ -25,38 +30,42 @@
         />
       </div>
       <div class="btn-wrapp">
-        <button class="btn btn-register" @click="onSubmit">register</button>
+        <button class="btn btn-register" @click.prevent="register">
+          register
+        </button>
         <button class="btn btn-login" @click="goToLogin">login</button>
       </div>
     </form>
+    <p v-show="message !== ''">{{ message }}</p>
   </div>
 </template>
 
 <script lang="js">
-import axios from 'axios';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   name: "UserRegister",
   data() {
     return {
-      username: "",
-      sex:"",
-      password: "",
+      userName: "",
+      userPhone:"",
+      userPassword: "",
       confirmPassword: "",
+      ...mapState("userStore",["message"])
     };
   },
   methods: {
-    onSubmit() {
-      if (this.password !== this.confirmPassword) {
-        alert("Passwords do not match");
-        return;
+    ...mapActions("userStore",["authenticate"]),
+
+    register() {
+      // 密码输入不一致
+      if (this.userPassword !== this.confirmPassword) {
+        console.log(this.userPassword, this.confirmPassword);
+
       }
 
-      axios.post("http://localhost:3000/api/user/register",{
-        username:this.username,
-        password:this.password,
-        sex:this.sex
-      })
+      // 调用统一API进行认证
+      this.authenticate({userName:this.userName, userPhone:this.userPhone,userPassword:this.userPassword,way:"register"})
     },
 
     goToLogin(){
