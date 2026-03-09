@@ -1,7 +1,7 @@
 <template>
   <div class="user-register">
     <h1 class="user-register-title">register</h1>
-    <form class="user-register-form">
+    <div class="user-register-form">
       <div class="form-item">
         <input type="text" v-model="userName" placeholder="username" required />
       </div>
@@ -35,13 +35,13 @@
         </button>
         <button class="btn btn-login" @click="goToLogin">login</button>
       </div>
-    </form>
-    <p v-show="message !== ''">{{ message }}</p>
+    </div>
+    <p v-if="message !== ''">{{ message }}</p>
   </div>
 </template>
 
 <script lang="js">
-import { mapActions, mapState } from 'vuex';
+import { mapActions,mapState } from 'vuex';
 
 export default {
   name: "UserRegister",

@@ -26,11 +26,13 @@
         </button>
       </div>
     </div>
+
+    <p v-if="message !== ''">{{ message }}</p>
   </div>
 </template>
 
 <script lang="js">
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 
 export default {
@@ -41,6 +43,11 @@ export default {
       password: "", //密码
     };
   },
+
+  computed:{
+    ...mapState("userStore",["message"])
+  },
+
   methods: {
       ...mapActions("userStore",["authenticate"])
     ,
