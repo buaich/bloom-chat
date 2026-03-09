@@ -45,20 +45,21 @@ export default {
   },
 
   computed:{
+    // 映射userStore中的state
     ...mapState("userStore",["message"])
   },
 
   methods: {
+    // 映射userStore中的Action
       ...mapActions("userStore",["authenticate"])
     ,
 
     login(){
       console.log("<pages/UserLogin.vue>:login() execute");
-
       this.authenticate({userName:this.username,userPassword:this.password,way:"login"});
     },
 
-       // 编程式路由导航，跳转到注册页
+    // 编程式路由导航，跳转到注册页
     goToRegister() {
       this.$router.push({ name: "register" });
     },
