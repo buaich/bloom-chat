@@ -57,6 +57,10 @@ export default {
     login(){
       console.log("<pages/UserLogin.vue>:login() execute");
       this.authenticate({userName:this.username,userPassword:this.password,way:"login"});
+
+      this.$router.push({
+        path:"/chat"
+      })
     },
 
     // 编程式路由导航，跳转到注册页
