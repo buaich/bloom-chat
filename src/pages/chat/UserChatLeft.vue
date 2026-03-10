@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 import legman from "@/utils/legman/bus.js";
 
 export default {
@@ -109,6 +109,10 @@ export default {
   },
 
   methods: {
+    ...mapActions("messageStore", {
+      getAll: "getAllMessages",
+    }),
+
     /**
      * @description 动态改变面板内容高度
      * @param {string} panelName - 目标面板名称
@@ -158,8 +162,11 @@ export default {
      * @param {string} name - 对方的名称
      * @returns {undefined}
      */
-    communicate(name) {
+    async communicate(name) {
       console.log("<pages/chat/UserChatLeft.vue>: communicate execute", name);
+
+      // 异步获取全部信息
+      await this.getAll({ receiver: name });
 
       legman.emit("chat", { name });
     },
