@@ -2,6 +2,7 @@ import userHttp from "@/utils/network/user";
 
 export default {
   namespaced: true, //开启命名空间
+
   state: () => ({
     code: null, //用户业务状态码
     data: null, //响应体
@@ -36,7 +37,6 @@ export default {
         return;
       }
 
-      console.log("<store/user.js>:authentication() execute, result:", result);
       // 更新state
       state.code = result.code;
       state.data = result.data;
