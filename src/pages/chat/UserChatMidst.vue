@@ -19,9 +19,9 @@
       </div>
     </div>
 
-    <div v-show="name !== ''" class="input-area">
-      <input placeholder="Type a message..." class="message-input" />
-      <button class="send-btn">Send</button>
+    <div v-show="name !== ''" class="input-box-wrapper">
+      <input placeholder="Type a message..." class="input-box" />
+      <button class="btn">Send</button>
     </div>
   </div>
 </template>
@@ -105,33 +105,36 @@ export default {
   text-align: right;
   opacity: 0.7;
 }
-.input-area {
+
+/* #region 聊天输入框相关样式 */
+.input-box-wrapper {
   display: flex;
   padding: 12px 15px;
   background: white;
   border-top: 1px solid #eee;
 }
-.message-input {
+.input-box {
   flex: 1;
   padding: 10px 15px;
   border: 1px solid #ddd;
   border-radius: 20px;
   font-size: 14px;
 }
-.message-input:focus {
+.input-box:focus {
   outline: none;
   border-color: #3498db;
 }
-.send-btn {
+.btn {
   padding: 0 20px;
   margin-left: 10px;
-  background: #3498db;
+  background: #2c2c2c;
   color: white;
   border: none;
   border-radius: 20px;
   cursor: pointer;
 }
-.send-btn:hover {
-  background: #2980b9;
+.btn:hover {
+  background: rgb(148, 233, 20);
 }
+/* #endregion */
 </style>
