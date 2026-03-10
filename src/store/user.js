@@ -19,7 +19,7 @@ export default {
      * @param {string} way -认证方式
      * @returns {undefined}
      */
-    async authenticate({ state }, { userName, userPhone, userPassword, way }) {
+    async authenticate({ commit }, { userName, userPhone, userPassword, way }) {
       let result = null;
 
       if (way === "login") {
@@ -37,10 +37,24 @@ export default {
         return;
       }
 
-      // 更新state
-      state.code = result.code;
-      state.data = result.data;
-      state.message = result.message;
+      // 同步更新state
+      commit("SET_CODE", result.code);
+      commit("SET_DATA", result.data);
+      commit("SET_MESSAGE", result.message);
+    },
+  },
+
+  mutations: {
+    SET_CODE(state, newCode) {
+      state.code = newCode;
+    },
+
+    SET_DATA(state, newData) {
+      state.data = newData;
+    },
+
+    SET_MESSAGE(state, newMessage) {
+      state.message = newMessage;
     },
   },
 };

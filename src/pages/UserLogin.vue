@@ -54,9 +54,10 @@ export default {
       ...mapActions("userStore",["authenticate"])
     ,
 
-    login(){
+    // 必须异步！
+    async login(){
       console.log("<pages/UserLogin.vue>:login() execute");
-      this.authenticate({userName:this.username,userPassword:this.password,way:"login"});
+      await this.authenticate({userName:this.username,userPassword:this.password,way:"login"});
 
       this.$router.push({
         path:"/chat"
