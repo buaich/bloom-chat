@@ -1,7 +1,7 @@
 <template>
   <div class="chat-area">
     <div class="chat-header">
-      <h3>friend name</h3>
+      <h3>{{ name }}</h3>
     </div>
 
     <div class="messages-container" ref="box">
@@ -27,10 +27,19 @@
 </template>
 
 <script>
+import legman from "@/utils/legman/bus.js";
+
 export default {
   name: "UserChatMidst",
   data() {
-    return {};
+    return {
+      name: "",
+    };
+  },
+
+  created() {
+    // 监听事件，获取聊天对象的名称
+    legman.on("chat", ({ name }) => (this.name = name));
   },
 };
 </script>

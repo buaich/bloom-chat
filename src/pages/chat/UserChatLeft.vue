@@ -34,6 +34,7 @@
             v-for="(friend, index) in friends"
             :key="index"
             class="dropdown-item"
+            @click="communicate(friend)"
           >
             {{ friend }}
           </li>
@@ -84,6 +85,7 @@
 
 <script>
 import { mapState } from "vuex";
+import legman from "@/utils/legman/bus.js";
 
 export default {
   name: "UserChatLeft",
@@ -148,6 +150,17 @@ export default {
           this.groupHeight = 0;
         }
       }
+    },
+
+    /**
+     * @description 任意组件间通信-传递聊天对象（对方）信息
+     * @param {string} name - 对方的名称
+     * @returns {undefined}
+     */
+    communicate(name) {
+      console.log("<pages/chat/UserChatLeft.vue>: communicate execute", name);
+
+      legman.emit("chat", { name });
     },
   },
 };
