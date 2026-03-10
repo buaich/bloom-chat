@@ -94,7 +94,7 @@ router.beforeEach(async (to, from, next) => {
         const payload =
           typeof rawPayload === "function" ? rawPayload() : rawPayload;
 
-        // 派发action
+        // 派发行动任务
         await rootStore.dispatch(`${namespacedPrefix}/${actionType}`, payload);
       }
     } catch (error) {
