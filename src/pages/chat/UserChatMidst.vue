@@ -1,7 +1,7 @@
 <template>
-  <div class="chat-area">
-    <div class="chat-header">
-      <h3>{{ name }}</h3>
+  <div class="midst">
+    <div class="header">
+      <p class="target">{{ name }}</p>
     </div>
 
     <div class="messages-container" ref="box">
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div class="input-area">
+    <div v-show="name !== ''" class="input-area">
       <input placeholder="Type a message..." class="message-input" />
       <button class="send-btn">Send</button>
     </div>
@@ -34,8 +34,12 @@ export default {
   data() {
     return {
       name: "",
+      timerId: null, //计时器id
+      currentTime: "",
     };
   },
+
+  methods: {},
 
   created() {
     // 监听事件，获取聊天对象的名称
@@ -46,17 +50,17 @@ export default {
 
 <style scoped>
 /* 原窗口样式 */
-.chat-area {
+.midst {
   flex: 1;
   display: flex;
   flex-direction: column;
   background: white;
 }
-.chat-header {
+.header {
   padding: 10px 15px;
   background: #ecf0f1;
   border-bottom: 1px solid #ddd;
-  font-weight: 600;
+  display: flex;
 }
 .messages-container {
   flex: 1;

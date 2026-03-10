@@ -74,6 +74,7 @@
             v-for="(group, index) in groupList"
             :key="index"
             class="dropdown-item"
+            @click="communicate(group)"
           >
             {{ group }}
           </li>

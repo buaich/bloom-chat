@@ -27,6 +27,7 @@
       </label>
     </div>
     <div class="user-info">
+      <FlipClock size="15" theme="light" />
       <span>Welcome, {{ userInfo.userName }}!</span>
       <button class="btn-logout">Logout</button>
     </div>
