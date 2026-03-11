@@ -56,7 +56,6 @@ export default {
 
     // 必须异步！
     async login(){
-      console.log("<pages/UserLogin.vue>:login() execute");
       await this.authenticate({userName:this.username,userPassword:this.password,way:"login"});
 
       this.$router.push({

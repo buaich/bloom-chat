@@ -21,7 +21,6 @@ export default {
 
       try {
         const result = await userHttp.get(`/user/relation/all/${userName}`);
-        console.log(result);
 
         // 同步更新state
         commit("SET_CODE", result.code);

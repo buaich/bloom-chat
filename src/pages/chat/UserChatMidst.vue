@@ -21,8 +21,13 @@
     </div>
 
     <div v-show="receiver !== ''" class="input-box-wrapper">
-      <input placeholder="Type a message..." class="input-box" />
-      <button class="btn">Send</button>
+      <input
+        placeholder="Type a message..."
+        class="input-box"
+        v-model="newMessage"
+        @keyup.enter="sendMessage"
+      />
+      <button class="btn" @click="sendMessage">Send</button>
     </div>
   </div>
 </template>
@@ -30,6 +35,7 @@
 <script>
 import legman from "@/utils/legman/bus.js";
 import rootStore from "@/store/index.js";
+import { mapActions } from "vuex";
 
 export default {
   name: "UserChatMidst",
@@ -39,13 +45,40 @@ export default {
       receiver: "",
       status: "offline",
       messages: null,
+      newMessage: "",
     };
   },
 
-  methods: {},
+  methods: {
+    ...mapActions("chatStore", ["send"]),
+    ...mapActions("messageStore", {
+      getAll: "getAllMessages",
+    }),
+
+    sendMessage() {
+      if (!this.newMessage.trim() || !this.receiver) return; //消息为空或没有目标对象
+
+      // 构造消息结构体
+      const message = {
+        messageType: 1, //0表示群聊消息、1表示私聊消息
+        sender: this.currentUser,
+        receiver: this.receiver,
+        content: this.newMessage.trim(),
+        createdAt: new Date().toLocaleString(),
+      };
+
+      // 发送消息
+      this.send(message);
+
+      // 本地更新
+      this.$store.commit("messageStore/APPEND_MESSAGE", message);
+
+      this.newMessage = "";
+    },
+  },
 
   created() {
-    // 监听事件，获取聊天对象名称以及消息列表
+    // 监听事件，获取聊天对象名称以及历史消息列表
     legman.on("chat", ({ receiver, messages }) => {
       this.receiver = receiver;
       this.messages = messages;

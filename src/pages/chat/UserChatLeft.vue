@@ -117,6 +117,8 @@ export default {
       getAll: "getAllMessages",
     }),
 
+    ...mapActions("chatStore", ["init"]),
+
     /**
      * @description 动态改变面板内容高度
      * @param {string} panelName - 目标面板名称
@@ -167,10 +169,12 @@ export default {
      * @returns {undefined}
      */
     async communicate(receiver) {
-      // 异步获取全部信息
+      // 异步获取历史消息
       await this.getAll({ receiver });
-      // 发送给需要的组件实例
       legman.emit("chat", { receiver, messages: this.messages });
+
+      // 初始化WebSocket连接
+      await this.init();
     },
   },
 };

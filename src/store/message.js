@@ -13,12 +13,10 @@ export default {
     async getAllMessages({ commit, rootState }, { receiver }) {
       // 获取当前登录的用户名
       const sender = rootState.userStore.data.userName;
-      console.log(sender);
 
       try {
         // 异步获取消息列表
         const result = await userHttp.get(`/message/${sender}/${receiver}`);
-        console.log(result);
 
         // 同步更新state
         commit("SET_CODE", result.code);
@@ -41,6 +39,13 @@ export default {
 
     SET_MESSAGE(state, newMessage) {
       state.message = newMessage;
+    },
+
+    APPEND_MESSAGE(state, newMessage) {
+      if (!Array.isArray(state.data)) {
+        state.data = [];
+      }
+      state.data.push(newMessage);
     },
   },
 };
