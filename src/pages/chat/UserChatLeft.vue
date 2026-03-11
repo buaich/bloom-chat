@@ -106,6 +106,10 @@ export default {
     ...mapState("relationStore", {
       friends: (state) => state.data.map((relation) => relation.friendName),
     }),
+
+    ...mapState("messageStore", {
+      messages: (state) => state.data,
+    }),
   },
 
   methods: {
@@ -162,13 +166,11 @@ export default {
      * @param {string} name - 对方的名称
      * @returns {undefined}
      */
-    async communicate(name) {
-      console.log("<pages/chat/UserChatLeft.vue>: communicate execute", name);
-
+    async communicate(receiver) {
       // 异步获取全部信息
-      await this.getAll({ receiver: name });
-
-      legman.emit("chat", { name });
+      await this.getAll({ receiver });
+      // 发送给需要的组件实例
+      legman.emit("chat", { receiver, messages: this.messages });
     },
   },
 };
