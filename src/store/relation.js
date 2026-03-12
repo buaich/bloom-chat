@@ -30,6 +30,16 @@ export default {
         console.log(error);
       }
     },
+
+    /**
+     * @description 清除关系
+     * @returns {undefined}
+     */
+    clear({ commit }) {
+      commit("SET_CODE", null);
+      commit("SET_DATA", null);
+      commit("SET_MESSAGE", "");
+    },
   },
 
   mutations: {

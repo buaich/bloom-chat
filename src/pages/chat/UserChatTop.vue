@@ -29,18 +29,41 @@
     <div class="user-info">
       <FlipClock size="15" theme="light" />
       <span>Welcome, {{ userInfo.userName }}!</span>
-      <button class="btn-logout">Logout</button>
+      <button class="btn-logout" @click="logout">Logout</button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "UserChatTop",
+
   computed: {
     ...mapState("userStore", { userInfo: "data" }),
+  },
+
+  methods: {
+    ...mapActions("userStore", { clearUser: "clear" }),
+    ...mapActions("relationStore", { clearRelations: "clear" }),
+    ...mapActions("messageStore", { clearMessages: "clear" }),
+    ...mapActions("chatStore", { clearChat: "clear" }),
+
+    /**
+     * @description 用户登出，清空所有信息
+     * @returns {undefined}
+     */
+    logout() {
+      this.clearChat();
+      this.clearMessages();
+      this.clearRelations();
+      this.clearUser();
+      localStorage.clear();
+      this.$router.push({
+        path: "/",
+      });
+    },
   },
 };
 </script>

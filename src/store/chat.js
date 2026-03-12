@@ -125,6 +125,15 @@ export default {
         commit("SET_STATUS", "CLOSED");
       }
     },
+
+    /**
+     * @description 清除关系
+     * @returns {undefined}
+     */
+    clear({ commit }) {
+      commit("SET_WS", null);
+      commit("SET_STATUS", "CLOSED");
+    },
   },
 
   mutations: {

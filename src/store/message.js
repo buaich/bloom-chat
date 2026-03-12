@@ -26,6 +26,16 @@ export default {
         console.log(error);
       }
     },
+
+    /**
+     * @description 清除消息
+     * @returns {undefined}
+     */
+    clear({ commit }) {
+      commit("SET_CODE", null);
+      commit("SET_DATA", null);
+      commit("SET_MESSAGE", "");
+    },
   },
 
   mutations: {
@@ -47,5 +57,14 @@ export default {
       }
       state.data.push(newMessage);
     },
+  },
+  /**
+   * @description 清除消息
+   * @returns {undefined}
+   */
+  clear({ commit }) {
+    commit("SET_CODE", null);
+    commit("SET_DATA", null);
+    commit("SET_MESSAGE", "");
   },
 };

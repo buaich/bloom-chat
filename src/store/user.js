@@ -42,6 +42,16 @@ export default {
       commit("SET_DATA", result.data);
       commit("SET_MESSAGE", result.message);
     },
+
+    /**
+     * @description 清除用户信息
+     * @returns {undefined}
+     */
+    clear({ commit }) {
+      commit("SET_CODE", null);
+      commit("SET_DATA", null);
+      commit("SET_MESSAGE", "");
+    },
   },
 
   mutations: {
